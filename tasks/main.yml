@@ -1,0 +1,52 @@
+---
+- name: Include OS-specific variables (Debian)
+  include_vars: "{{ ansible_os_family }}.yml"
+  when: ansible_os_family == "Debian"
+
+- name: Include OS-specific variables (RHEL)
+  include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+  when: ansible_os_family == "RedHat"
+
+- name: Define ntp package
+  set_fact:
+    ntp_package: "{{ __ntp_package }}"
+  when: ntp_package is not defined
+
+- name: Define ntp service
+  set_fact:
+    ntp_service: "{{ __ntp_service }}"
+  when: ntp_service is not defined
+
+- name: Install ntp package
+  package:
+    name: "{{ ntp_package }}"
+    state: present
+  notify: Restart ntp
+
+- meta: flush_handlers
+
+- name: Use systemd to set timezone
+  become: true
+  shell: timedatectl set-timezone "{{ base_systemd_timezone }}"
+
+- name: Deploy the timesyncd template
+  template:
+    src: etc/systemd/timesyncd.conf.j2
+    dest: /etc/systemd/timesyncd.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart systemd-timedated
+
+- name: Use systemd to manage ntp
+  become: true
+  shell: timedatectl set-ntp "{{ base_systemd_ntp_enabled }}"
+
+- name: Get timedatectl status
+  shell: timedatectl status
+  register: timedatectl_status
+
+- debug:
+    var: timedatectl_status
+

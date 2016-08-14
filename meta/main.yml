@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Phil Porada
+  description: Configures timedatectl to manage time/date things.
+  company: Eat the rich
+  license: BSD
+  min_ansible_version: 2.1
+  platforms:
+  - name: EL
+    versions:
+    - 7
+  - name: Debian
+    versions:
+    - jessie
+
+  galaxy_tags:
+    - ntp
+    - ntpd
+    - systemd
+    - timedatectl
+    - systemd-timedated
+
+dependencies: []

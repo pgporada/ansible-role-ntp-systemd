@@ -1,0 +1,5 @@
+- name: Phil's Default Vim Play
+  hosts: all
+  gather_facts: true
+  roles:
+    - .
