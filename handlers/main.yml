@@ -1,5 +1,5 @@
 ---
-- name: Restart ntp
+- name: Restart systemd-timedated
   service:
-    name: "{{ ntp_service }}"
+    name: systemd-timedated
     state: restarted

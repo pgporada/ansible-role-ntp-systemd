@@ -27,6 +27,10 @@ License
 
 BSD
 
+References
+----------
+Thank you to the [NTP Pool Project](www.pool.ntp.org/en/).
+
 Author Information
 ------------------
 [Phil Porada](https://philporada.com)

@@ -1,13 +1,14 @@
 ---
-ntp_timezone: "America/Detroit"
-ntp_systemd_enabled: true
-ntp_config: /etc/ntp.conf
-ntp_timeservers:
+systemd_timezone: "America/Detroit"
+
+systemd_ntp_enabled: true
+
+systemd_timeservers:
   - 0.north-america.pool.ntp.org
   - 1.north-america.pool.ntp.org
   - 2.north-america.pool.ntp.org
   - 3.north-america.pool.ntp.org
-ntp_timeservers_fallback:
+systemd_timeservers_fallback:
   - server 0.pool.ntp.org
   - server 1.pool.ntp.org
   - server 2.pool.ntp.org
